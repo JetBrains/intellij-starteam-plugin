@@ -1,0 +1,68 @@
+<idea-plugin version="2">
+  <name>StarTeam Integration</name>
+  <id>Starteam</id>
+  <version>1.0</version>
+  <vendor logo="/general/ijLogo.png">JetBrains</vendor>
+  <resource-bundle>com.intellij.vcs.starteam.StarteamBundle</resource-bundle>
+  <category>VCS Integration</category>
+  <depends>com.intellij.modules.vcs</depends>
+  <depends>com.intellij.modules.ultimate</depends>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <errorHandler implementation="com.intellij.diagnostic.ITNReporter"/>
+    <ComponentRoamingType component="StarteamConfiguration" type="DISABLED"/>
+    <ComponentRoamingType component="StarteamVcsAdapter" type="DISABLED"/>
+    <vcs name="StarTeam" vcsClass="com.intellij.vcs.starteam.StarteamVcsAdapter"/>
+  </extensions>
+
+  <project-components>
+    <component>
+      <implementation-class>com.intellij.vcs.starteam.StarteamConfiguration</implementation-class>
+      <option name="workspace" value="true"/>
+    </component>
+    <component>
+      <implementation-class>com.intellij.vcs.starteam.StarteamVcsAdapter</implementation-class>
+    </component>
+  </project-components>
+
+  <application-components>
+    <component>
+      <implementation-class>com.intellij.vcs.starteam.StarteamApplicationLevelHook</implementation-class>
+      <headless-implementation-class/>
+    </component>
+  </application-components>
+
+  <actions>
+    <group id="StarteamGlobalGroup" class="com.intellij.vcs.starteam.actions.StarteamGroup" popup="true" >
+      <add-to-group group-id="VcsGroups" anchor="last"/>
+    </group>
+    <group id="StarteamFilePopupGroup" class="com.intellij.vcs.starteam.actions.StarteamGroup" popup="true" >
+      <add-to-group group-id="VcsGroup" anchor="last"/>
+    </group>
+
+    <action id="Starteam.ShowDiffAction" class="com.intellij.vcs.starteam.actions.ShowDiffAction"/>
+
+    <group id="Starteam.Popup">
+      <action id="Starteam.Add" class="com.intellij.vcs.starteam.actions.AddAction"/>
+      <action id="Starteam.Checkout" class="com.intellij.vcs.starteam.actions.CheckoutAction"/>
+      <action id="Starteam.Lock" class="com.intellij.vcs.starteam.actions.LockAction"/>
+      <action id="Starteam.Unlock" class="com.intellij.vcs.starteam.actions.UnlockAction"/>
+      <reference id="CheckinFiles"/>
+      <separator/>
+      <reference id="Vcs.ShowTabbedFileHistory"/>
+      <reference id="Starteam.ShowDiffAction"/>
+      <separator/>
+      <action id="Starteam.UpdateFolder" class="com.intellij.openapi.vcs.update.CommonUpdateFileOrDirectoryAction"/>
+      <action id="Starteam.Refresh" class="com.intellij.vcs.starteam.actions.RefreshAction"/>
+      <!-- added by Duane -->
+      <action id="Starteam.Reconnect" class="com.intellij.vcs.starteam.actions.ReconnectAction"/>
+      <add-to-group group-id="StarteamGlobalGroup" anchor="last"/>
+      <add-to-group group-id="StarteamFilePopupGroup" anchor="last"/>
+    </group>
+
+    <group id="Starteam.Vcs.CheckinProjectPopup" popup="true" class="com.intellij.vcs.starteam.actions.StarteamGroup">
+      <reference id="Starteam.ShowDiffAction"/>
+      <add-to-group group-id="Vcs.CheckinProjectPopup" anchor="last"/>
+    </group>
+  </actions>
+</idea-plugin>
