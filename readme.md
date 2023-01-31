@@ -1,3 +1,5 @@
+![Obsolete](https://jb.gg/badges/obsolete-plastic.svg)
+
 This is the StarTeam plugin for IntelliJ IDEA. JetBrains is no longer 
 developing or maintaining the plugin, so if you'd like to use the
 StarTeam integration, you're welcome to build this from source and
